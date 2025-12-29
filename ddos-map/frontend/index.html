@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <meta charset="UTF-8" />
+  <title>Real-Time Network Metrics</title>
+  <script type="module" src="/main.js"></script>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Real-Time Network Threat Dashboard</h1>
+    <p>Live streaming metrics & threat visualization</p>
+  </header>
+
+  <main>
+    <section class="metrics">
+      <div class="card">
+        <span>Total Events</span>
+        <strong id="total">0</strong>
+      </div>
+      <div class="card danger">
+        <span>DDoS Events</span>
+        <strong id="ddos">0</strong>
+      </div>
+      <div class="card safe">
+        <span>Normal Events</span>
+        <strong id="normal">0</strong>
+      </div>
+      <div class="card">
+        <span>Events / Sec</span>
+        <strong id="eps">0</strong>
+      </div>
+    </section>
+
+    <section id="map"></section>
+  </main>
+</body>
+
+</html>

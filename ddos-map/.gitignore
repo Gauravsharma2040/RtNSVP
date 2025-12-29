@@ -1,0 +1,76 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.log
+
+# =========================
+# Data / Datasets
+# =========================
+data/
+dataset/
+datasets/
+*.csv
+*.pcap
+*.pcapng
+
+# Allow small example CSVs if you want
+!dataset/example.csv
+
+# =========================
+# Node / Vite / Frontend
+# =========================
+node_modules/
+dist/
+build/
+.vite/
+
+# Vite cache
+.vite/
+*.tsbuildinfo
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+
+# =========================
+# Misc
+# =========================
+*.tmp
+*.swp
+*.bak
