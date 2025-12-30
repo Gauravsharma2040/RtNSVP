@@ -1,11 +1,5 @@
-// Helper for fake coordinates
+
 import "./style.css";
-function fakeGeo() {
-  return [
-    Math.random() * 180 - 90,
-    Math.random() * 360 - 180
-  ];
-}
 
 window.addEventListener("DOMContentLoaded", () => {
   // ✅ Create map AFTER DOM exists
@@ -21,33 +15,37 @@ window.addEventListener("DOMContentLoaded", () => {
   ws.onopen = () => {
     console.log("Connected to backend");
   };
+const markers = [];
 
-  ws.onmessage = (msg) => {
-    const data = JSON.parse(msg.data);
-    const m = data.metrics;
-    if (!m) return;
+function addMarker(marker) {
+  markers.push(marker);
+  if (markers.length > 1000) {
+    map.removeLayer(markers.shift());
+  }
+}
 
-    // Update metrics
-    document.getElementById("total").textContent = m.total_events;
-    document.getElementById("ddos").textContent = m.ddos_events;
-    document.getElementById("normal").textContent = m.normal_events;
-    document.getElementById("eps").textContent = m.events_per_second;
+ws.onmessage = (msg) => {
+  const data = JSON.parse(msg.data);
+  const m = data.metrics;
+  const e = data.event;
 
-    // Plot event
-    const coords = fakeGeo();
-    const color = data.event.label === "ddos" ? "red" : "green";
+  if (!m || !e || e.lat == null) return;
 
-    const marker = L.circleMarker(coords, {
-      radius: 6,
-      color,
-      fillOpacity: 0.8,
-    }).addTo(map);
+  document.getElementById("total").textContent = m.total_events;
+  document.getElementById("ddos").textContent = m.ddos_events;
+  document.getElementById("normal").textContent = m.normal_events;
+  document.getElementById("eps").textContent = m.events_per_second;
 
-    // Auto-remove marker
-    setTimeout(() => {
-      map.removeLayer(marker);
-    }, 10000);
-  };
+  const color = e.label === "ddos" ? "red" : "green";
+
+  const marker = L.circleMarker([e.lat, e.lon], {
+    radius: 6,
+    color,
+    fillOpacity: 0.7
+  }).addTo(map);
+
+  addMarker(marker);
+};
 
   ws.onerror = (err) => {
     console.error("WebSocket error", err);

@@ -36,6 +36,9 @@ datasets/
 *.csv
 *.pcap
 *.pcapng
+*.json
+*.pyc
+
 
 # Allow small example CSVs if you want
 !dataset/example.csv
